@@ -1,10 +1,10 @@
-![](doc/logo/logo_sm.png)
+ï»¿![](doc/logo/logo_md.png)
 A blog website written in php.
 
 
 # Language
 * [English](doc/readme_en.md) </br>
-* [ÖÐÎÄ](doc/readme_zh.md)
+* [ä¸­æ–‡](doc/readme_zh.md)
 
 
 # Introduction

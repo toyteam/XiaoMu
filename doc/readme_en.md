@@ -1,10 +1,10 @@
-# XiaoMu
+ï»¿![](doc/logo/logo_md.png)
 A blog website written in php.
 
 
 # Language
-* [English](/doc/readme_en.md) </br>
-* [ÖÐÎÄ](/doc/readme_zh.md)
+* [English](doc/readme_en.md) </br>
+* [ä¸­æ–‡](doc/readme_zh.md)
 
 
 # Introduction
@@ -23,5 +23,5 @@ Firstly, download the laravel framework to your web server directory, which is t
 
 
 ## Database Dictionary
-[The dictionary](/database_dictionary_en.md) illustrates the structure of the database.
+[The dictionary](doc/database_dictionary_en.md) illustrates the structure of the database.
 

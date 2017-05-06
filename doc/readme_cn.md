@@ -1,26 +1,26 @@
-# XiaoMu
-һ��php����ϵͳ��
+﻿# 晓木
+一个php博客系统。
 
 
-# ����
+# 语言
 * [English](/doc/readme_en.md) </br>
-* [����](/doc/readme_zh.md)
+* [中文](/doc/readme_zh.md)
 
 
-# ���
-XiaoMu������һ������web�Ĳ���ϵͳ�� ��ʹ��php���ԣ�laravel��˿�ܣ�adminlteǰ�˿�����ܡ�
+# 简介
+XiaoMu博客是一个基于web的博客系统。 它使用php语言，laravel后端框架，adminlte前端开发框架。
 
-# ������
-�Ѿ����Ե���Щphp�汾�����б���ʾ��
+# 兼容性
+已经测试的这些php版本如下列表所示。
 * php 7.04
 
-�Ѿ����Ե�����������б���ʾ��
+已经测试的浏览器如下列表所示。
 * Chrome V57.0.2987.133
 
-# ���ʹ��
-���ȣ���laravel������ص�����Web������Ŀ¼������Apache��Nginx���ĵ���Ŀ¼�� Ȼ��Դpull����Ŀ¼�� �����������²��͡�
+# 如何使用
+首先，将laravel框架下载到您的Web服务器目录，这是Apache或Nginx的文档根目录。 然后将源pull到该目录。 最后，享受你的新博客。
 
 
-## ���ݿ��ֵ�
-[The dictionary](/database_dictionary_en.md) չʾ�����ݿ�ṹ.
+## 数据库字典
+[The dictionary](/database_dictionary_en.md) 展示着数据库结构.
 
