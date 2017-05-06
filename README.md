@@ -1,6 +1,7 @@
 ﻿![](doc/logo/logo_md.png)
-A blog website written in php.
-
+## A blog website written in php.
+[![Wercker](https://img.shields.io/wercker/ci/wercker/docs.svg)]()
+[![PyPI](https://img.shields.io/pypi/wheel/Django.svg)]()
 
 # Language
 * [English](doc/readme_en.md) </br>
