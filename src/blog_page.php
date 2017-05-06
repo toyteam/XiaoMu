@@ -71,9 +71,9 @@
         </div>
         <div class="row">
 <!--             <div class="mb-left">
-                <div class="block user-info">
-                    <div class="block-title">个人信息</div>
-                    <div class="block-content">
+                <div class="mb-block user-info">
+                    <div class="mb-block-title">个人信息</div>
+                    <div class="mb-block-content">
                         <img class="user-img width="100%" img width="100%"-rounded" src="default.jpg" width="100%"><br><br>
 
                         <p class="user-name">lichaoxi</p>
@@ -92,9 +92,9 @@
                     </div>
                 </div>
 
-                <div class="block search">
-                    <div class="block-title">搜索栏目</div>
-                    <div class="block-content">
+                <div class="mb-block search">
+                    <div class="mb-block-title">搜索栏目</div>
+                    <div class="mb-block-content">
                         <form action="search.php" method="get">
                             <div class="form-group has-success">
                                 <input type="" name="s" class="form-control" placeholder="查找博客">
@@ -103,9 +103,9 @@
                     </div>
                 </div>
 
-                <div class="block category">
-                    <div class="block-title">博客分类</div>
-                    <div class="block-content">
+                <div class="mb-block category">
+                    <div class="mb-block-title">博客分类</div>
+                    <div class="mb-block-content">
                         <ul>
                             <li><a href="#">Android</a> <span>(31)</span></li>
                             <li><a href="#">Flex</a> <span>(1)</span></li>
@@ -121,10 +121,10 @@
                 </div>
 
             </div> -->
-            <div class="mb-right">
-                <div class="bolg-info block">
-                    <div class="block-title">博客内容</div>
-                    <div class="block-content">
+            <div class="">
+                <div class="bolg-info mb-block">
+                    <div class="mb-block-title">博客内容</div>
+                    <div class="mb-block-content">
                         <div class="blog blog-title">
                             <div class="blog-title-text"><h1>2016 年最受欢迎的编程语言是什么？</h1></div>
                             <div class="user">
@@ -234,9 +234,9 @@
                     </div>
                 </div>
 
-                <div class="block comment">
-                    <div class="block-title">查看评论</div>
-                    <div class="block-content">
+                <div class="mb-block comment">
+                    <div class="mb-block-title">查看评论</div>
+                    <div class="mb-block-content">
                         <div class="view-comment">
                             <div class="user-comment">
                                 <div class="user-img"><img src="default.jpg" width="100%"></div>
@@ -253,7 +253,7 @@
                         <br>
                         <br>
                         <form action="submit.php" method="post">
-                            <textarea name="comment" id="textarea"></textarea>
+                            <textarea name="comment" id="textarea" style="height:400px;max-height:500px;"></textarea>
                             <button class="btn-submit pull-right">提交</button>
                         </form>
                         <br>

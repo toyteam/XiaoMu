@@ -12,12 +12,12 @@ body{
 }
 
 .mb-left{
-    float: left;
-    width: 200px;
+    margin-right: 220px;
 }
 
 .mb-right{
-    /*margin-left: 210px;*/
+    float: right;
+    width: 200px;
 }
 
 .mb-view-title{
@@ -51,7 +51,7 @@ body{
     margin-top: 50px;
 }
 
-.block-title{
+.mb-block-title{
     background-color: #383838; 
     color: white;
     width: 100%;
@@ -60,23 +60,23 @@ body{
     border-top-left-radius: 10px; 
 }
 
-.block-content{
+.mb-block-content{
     padding: 30px;
 }
 
-.block{
+.mb-block{
     background-color: white;
     border-radius: 15px;
     margin-bottom: 20px;
 }
 
-.category ul{
+.category ul, .mb-block ul{
     list-style: none;
     margin: 0px;
     padding: 0px;
 }
 
-.category li{
+.category li, {
     padding-left: 0px;
     margin: 8px 0px;
 }
@@ -101,7 +101,7 @@ body{
 .user-comment .user-img{
     width: 75px;
     float: left;
-    display: block;
+    display: mb-block;
 }
 
 .comment-info{
@@ -115,4 +115,9 @@ body{
 .comment-info hr{
     margin-bottom: 2px;
     margin-top: 2px;
+}
+
+.nav .active a{
+    color: white;
+    background-color: #383838;
 }
