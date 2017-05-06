@@ -1,4 +1,4 @@
-﻿![](doc/logo/logo_md.png)
+﻿![](doc/logo/logo_sm.png)
 A blog website written in php.
 
 
