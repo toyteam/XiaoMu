@@ -27,18 +27,20 @@
         }
         .user-name-sm{
             font-size:15px;
+            line-height: 17px;
             color: #555;
         }
         .user-bio-sm{
             color:black;
             margin-top: 6px;
+            line-height: 17px;
             overflow: hidden;
             font-size: 14px;
             white-space: nowrap;
         }
-        .avatar{
+        .avatar{/*
             width:100px;
-            height:100px;
+            height:100px;*/
         }
         .avatar-img{
             width:100%;
@@ -70,6 +72,32 @@
         .article-brief{
             margin-bottom: .72em;
         }
+        .marg{
+            margin-top: 25px;
+        }
+        .panel-body{
+            padding: 30px;
+        }
+        .thumbnail{
+            margin: 0px;
+        }
+        .after-img{
+            font-size: 10px;
+        }
+        .list-item{
+            border-left: solid 1px #ddd;
+            border-right: solid 1px #ddd;
+            border-bottom: solid 1px #383838;
+            padding: 10px;
+        }
+        .item-content{
+            min-height: 40px;
+        }
+        .btn-circle {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
     </style>
 
 </head>
@@ -96,22 +124,34 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
+                <div class="mb-block marg">
                     <div class="panel-body">
                         <div class="col-md-12">
                             <!--avatar content-->
-                            <div class="col-md-2">
+                            <div class="col-md-2 col-sm-4 col-xs-12" style="text-align: center;">
                                 <a href="#" class="thumbnail avatar">
                                     <img src="avatar/user1.jpg" alt="">
-                                </a>
+                                </a><br>
+                                <span class="after-img">关注(200)</span> |
+                                <span class="after-img">粉丝(200)</span>
                             </div>
                             <!--info content-->
-                            <div class="col-md-4">
-                                <div class="user-name-lg">
-                                    user
+                            <div class="col-md-10 col-sm-8 col-xs-12">
+                                <div class="user-name-lg col-md-12 col-sm-12 col-xs-12">
+                                    <span>User</span>
+                                    <span class="pull-right"><button class="btn btn-success btn-sm">关注</button></span>
                                 </div>
-                                <div class="user-bio-lg">
-                                    The first user
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                                    <span>Hello! I'm the first user, welcome to XMBlog</span>
+                                </div>
+                                <div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>文章数目：20</span></div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>浏览次数：20</span></div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>文章数目：20</span></div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>文章数目：20</span></div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="bottom: 0px; position: relative;">
+                                    <button class="btn btn-info btn-circle pull-right"><span class="glyphicon glyphicon-pencil"></span></button>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +159,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="panel panel-default">
+                <div class="mb-block">
                     <div class="panel-body">
                         <div class="col-md-12">
                             <ul class="nav nav-tabs">
@@ -132,7 +172,7 @@
                                 <li><a href="#">关注他的人</a></li>
                             </ul>
                             <ul class="list-group">
-                                <li class="list-group-item">
+                                <li class="list-item">
                                     <div class="event-name">
                                         关注了你
                                     </div>
@@ -144,7 +184,7 @@
                                         </span>
                                     </div>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-item">
                                     <div class="event-name">
                                         发表了新文章
                                     </div>
@@ -165,7 +205,7 @@
                                         这两天 GitHub 对其官网进行了改版，紧接着又发布了一年一度的开源报告，我们程序员比较关心之后的趋势是什么
                                     </div>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-item">
                                     <div class="event-name">
                                         评论了你的文章
                                     </div>
@@ -177,7 +217,7 @@
                                         </span>
                                     </div>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-item">
                                     <div class="event-name">
                                         给你留言
                                     </div>
