@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-05-14 12:40:00
+Date: 2017-05-19 20:48:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,7 +41,7 @@ CREATE TABLE `blog` (
   PRIMARY KEY (`id`),
   KEY `fk_blog_category_1` (`blog_category_id`),
   CONSTRAINT `fk_blog_category_1` FOREIGN KEY (`blog_category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for blog_view
@@ -58,7 +58,7 @@ CREATE TABLE `blog_view` (
   KEY `blog_view_user_id` (`blog_view_user_id`),
   CONSTRAINT `blog_view_ibfk_1` FOREIGN KEY (`blog_view_blog_id`) REFERENCES `blog` (`id`),
   CONSTRAINT `blog_view_ibfk_2` FOREIGN KEY (`blog_view_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for category
@@ -68,14 +68,14 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_user_id` int(11) NOT NULL,
   `category_name` varchar(50) NOT NULL,
-  `category_description` varchar(255) DEFAULT NULL,
+  `category_desc` varchar(255) DEFAULT NULL,
   `category_create_time` datetime NOT NULL,
   `category_update_time` datetime DEFAULT NULL,
   `category_delete_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `category_user_unique` (`category_user_id`,`category_name`),
+  UNIQUE KEY `category_user_unique` (`category_user_id`,`category_name`,`category_delete_time`) USING BTREE,
   CONSTRAINT `fk_category_user_1` FOREIGN KEY (`category_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for chat
@@ -111,7 +111,7 @@ CREATE TABLE `comment` (
   KEY `fk_comment_user_1` (`comment_user_id`),
   CONSTRAINT `fk_comment_blog_1` FOREIGN KEY (`comment_blog_id`) REFERENCES `blog` (`id`),
   CONSTRAINT `fk_comment_user_1` FOREIGN KEY (`comment_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for comment_report
@@ -134,7 +134,7 @@ CREATE TABLE `comment_report` (
 -- ----------------------------
 DROP TABLE IF EXISTS `follow`;
 CREATE TABLE `follow` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `follow_create_user_id` int(11) NOT NULL,
   `follow_target_user_id` int(11) NOT NULL,
   `follow_create_time` datetime NOT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `follow` (
   KEY `fk_follow_user_2` (`follow_target_user_id`),
   CONSTRAINT `fk_follow_user_1` FOREIGN KEY (`follow_create_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `fk_follow_user_2` FOREIGN KEY (`follow_target_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for like
@@ -204,6 +204,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(64) NOT NULL,
+  `user_desc` varchar(255) DEFAULT NULL,
   `user_password` varchar(64) NOT NULL,
   `user_email` varchar(50) NOT NULL,
   `user_phone` varchar(20) DEFAULT NULL,
@@ -242,4 +243,4 @@ CREATE TABLE `user_view` (
   KEY `user_view_create_user_id` (`user_view_create_user_id`),
   CONSTRAINT `user_view_ibfk_1` FOREIGN KEY (`user_view_target_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `user_view_ibfk_2` FOREIGN KEY (`user_view_create_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
