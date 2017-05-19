@@ -52,7 +52,7 @@ class LoginController extends Controller
         return redirect('login');
       case 5:
         
-        return redirect('user/dynamic');
+        return redirect('user');
       default:
         return redirect('login');
     }

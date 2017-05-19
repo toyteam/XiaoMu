@@ -67,4 +67,62 @@ class UserModel extends Model
                 ->select('user.id', 'user_name', 'user_alipay_picture_path', 'user_image_path')
                 ->first();
     }
+
+    public function get_user($user_id)
+    {
+        $category_count = DB::table('user')
+            ->where('user.id', $user_id)
+            ->join('category', 'category_user_id', '=', 'user.id')
+            ->whereNull('category_delete_time')
+            ->count();
+
+        $blog_count = DB::table('user')
+            ->where('user.id', $user_id)
+            ->join('category', 'category_user_id', '=', 'user.id')
+            ->whereNull('category_delete_time')
+            ->join('blog', 'blog_category_id', '=', 'category.id')
+            ->whereNull('blog_delete_time')
+            ->whereNull('blog_undo_time')
+            ->whereNotNull('blog_publish_time')
+            ->count();
+
+        // dd($blog_count);
+
+        $user_info = DB::table('user')
+            ->where('user.id', $user_id)
+            ->first();
+
+        return [
+            'user_info' => $user_info,
+            'category_count' => $category_count,
+            'blog_count' => $blog_count
+        ];
+
+    }
+
+    public function user_view_increment($user_id, $my_id)
+    {
+        if($user_id == $my_id) return;
+
+        $count = DB::table('user_view')
+                    ->where('user_view_target_user_id', $user_id)
+                    ->where('user_view_create_user_id', $my_id)
+                    ->count();
+
+        if($count != 0)
+            return;
+
+        $insert = [
+            'user_view_create_user_id' => $my_id,
+            'user_view_target_user_id' => $user_id,
+            'user_view_create_time' => date('Y-m-d H:i:s'),
+            'user_view_create_ip' => get_client_ip()
+        ];
+
+        DB::table('user_view')->insert($insert);
+
+        DB::table('user')
+            ->where('user.id', $user_id)
+            ->increment('user_profile_view_count');
+    }
 }

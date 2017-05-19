@@ -124,7 +124,7 @@
                             <?php echo session()->get('user_name') ?> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{url('user/dynamic')}}">个人主页</a></li>
+                            <li><a href="{{url('user')}}">个人主页</a></li>
                             <li><a href="{{url('logout')}}">登出</a></li>
                         </ul>
                     </li>
@@ -143,31 +143,41 @@
                             <!--avatar content-->
                             <div class="col-md-2 col-sm-4 col-xs-12" style="text-align: center;">
                                 <a href="#" class="thumbnail avatar">
-                                    <img src="{{asset('image')}}/user1.jpg" alt="">
+                                    <img src="{{$user_info->user_image_path}}" alt="">
                                 </a><br>
-                                <span class="after-img">关注(200)</span> |
-                                <span class="after-img">粉丝(200)</span>
+                                <span class="after-img">关注({{count($user_follow)}})</span> |
+                                <span class="after-img">粉丝({{count($follow_user)}})</span>
                             </div>
                             <!--info content-->
                             <div class="col-md-10 col-sm-8 col-xs-12">
                                 <div class="user-name-lg col-md-12 col-sm-12 col-xs-12">
-                                    <span>User</span>
-                                    <span class="pull-right"><button class="btn btn-success btn-sm">关注</button></span>
+                                    <span>{{$user_info->user_name}}</span>
+                                    @if(session()->get('user_id', 0) != $user_info->id)
+                                    @if(isset($is_follow) && $is_follow)
+                                    <span class="pull-right"><a href="{{url('user/unfollow')}}?id={{$user_info->id}}" class="btn btn-success btn-sm">取消关注</a></span>
+                                    @else
+                                    <span class="pull-right"><a href="{{url('user/follow')}}?id={{$user_info->id}}" class="btn btn-success btn-sm">关注</a></span>
+                                    @endif
+                                    <span class=""><button class="btn btn-info btn-sm">私信</button></span>
+                                    @endif
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                    <span>{{$user_info->user_desc}}</span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="font-size: 24px; margin-bottom: 10px;">
+                                    <div class="col-md-4 col-sm-6 col-xs-12"><span class="label label-success">邮箱 : {{$user_info->user_email}}</span></div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
-                                    <span>Hello! I'm the first user, welcome to XMBlog</span>
-                                </div>
-                                <div>
-                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>文章数目：20</span></div>
-                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>浏览次数：20</span></div>
-                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>文章数目：20</span></div>
-                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>文章数目：20</span></div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>文章数目：{{$blog_count}}</span></div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12"><span>浏览次数：{{$user_info->user_profile_view_count}}</span></div>
                                 </div>
                                 <div>&nbsp;</div>
                                 <div>&nbsp;</div>
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="bottom: 0px; position: relative;">
+                                    @if(session()->get('user_id', 0) == $user_info->id)
                                     <a href="{{url('blog/manage/write')}}" class="btn btn-primary " style="bottom: 0px">博客管理</a>
                                     <button class="btn btn-info btn-circle pull-right"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -46,6 +46,9 @@
             height: 60px;
             width: 60px;
         }
+        .btn-thumbs{
+            padding: 16px;
+        }
     </style>
 
 </head>
@@ -73,7 +76,7 @@
                             <?php echo session()->get('user_name') ?> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{url('user/dynamic')}}">个人主页</a></li>
+                            <li><a href="{{url('user')}}">个人主页</a></li>
                             <li><a href="{{url('logout')}}">登出</a></li>
                         </ul>
                     </li>
@@ -183,7 +186,7 @@
                                 <br>
                                 <div id="comment"></div>
                                 <div style="width: 100%; text-align: center">
-                                    <button class="btn btn-lg btn-circle btn-default"><span class="glyphicon glyphicon glyphicon-thumbs-up"></span></button>
+                                    <a href="{{url('blog/like')}}?id={{$blog->id}}" class="btn btn-thumbs btn-lg btn-circle btn-default"><span class="glyphicon glyphicon glyphicon-thumbs-up"></span></a>
                                     <button class="btn btn-lg btn-circle btn-default" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon glyphicon-yen"></span></button>
                                 </div>
                             </div>

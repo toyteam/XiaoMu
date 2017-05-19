@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('pnotify')}}/dist/pnotify.custom.min.css">
 
     <link href="{{asset('css')}}/myblog.css" rel="stylesheet">
 
@@ -82,7 +83,7 @@
                             <?php echo session()->get('user_name') ?> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{url('user/dynamic')}}">个人主页</a></li>
+                            <li><a href="{{url('user')}}">个人主页</a></li>
                             <li><a href="{{url('logout')}}">登出</a></li>
                         </ul>
                     </li>
@@ -122,12 +123,58 @@
 
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script src="{{asset('pnotify')}}/dist/pnotify.custom.min.js"></script>
+    
     @section('js')
 
     @show
+
     @if(isset($url))
-    <script type="text/javascript">
+    
+    <script>
         $('#{{$url}}').addClass('active');
+    </script>
+
+    @endif
+
+    @if(session()->has('info'))
+    <script>
+      $(document).ready(function() {
+        new PNotify({
+          title: '{!!session()->get('info')['title']!!}',
+          text: '{!!session()->get('info')['text']!!}',
+          delay: 5000,
+          type: 'info',
+          styling: 'bootstrap3'
+        });
+      });
+    </script>
+    @endif
+    @if(session()->has('error'))
+    <script>
+      $(document).ready(function() {
+        new PNotify({
+          title: '{!!session()->get('error')['title']!!}',
+          text: '{!!session()->get('error')['text']!!}',
+          delay: 5000,
+          type: 'error',
+          styling: 'bootstrap3'
+        });
+      });
+    </script>
+    @endif
+    @if(session()->has('success'))
+    <script>
+      $(document).ready(function() {
+        new PNotify({
+          title: '{!!session()->get('success')['title']!!}',
+          text: '{!!session()->get('success')['text']!!}',
+          delay: 5000,
+          type: 'success',
+          styling: 'bootstrap3'
+        });
+      });
     </script>
     @endif
 </body>

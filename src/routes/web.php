@@ -31,7 +31,10 @@ Route::group(['middleware' => 'IsLogin'], function() {
     
     Route::group(['prefix' => 'user'], function() {
         
-        Route::get('/dynamic', 'UserController@dynamic');
+        Route::get('/', 'UserController@user');
+
+        Route::get('/follow', 'UserController@follow');
+        Route::get('/unfollow', 'UserController@unfollow');
 
     });
 
@@ -49,8 +52,15 @@ Route::group(['middleware' => 'IsLogin'], function() {
             Route::get('/undo', 'BlogManageController@undo');
 
             Route::get('/delete', 'BlogManageController@delete');
+            
+            Route::group(['prefix' => 'category'], function() {
 
-            Route::get('/category', 'BlogManageController@category');
+                Route::get('/', 'BlogManageController@category');
+                Route::post('/add', 'BlogManageController@category_add');
+                Route::post('/edit', 'BlogManageController@category_edit');
+                Route::get('/delete', 'BlogManageController@category_delete');
+
+            });
             
             Route::get('/comment', 'BlogManageController@comment');
         
@@ -73,7 +83,8 @@ Route::group(['middleware' => 'IsLogin'], function() {
 
         });
 
-        
+        Route::get('/like', 'BlogController@like');
+        Route::get('/unlike', 'BlogController@unlike');
 
     
     });

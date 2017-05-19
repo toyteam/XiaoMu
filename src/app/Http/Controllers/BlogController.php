@@ -10,12 +10,14 @@ class BlogController extends Controller
     protected $category_model;
     protected $comment_model;
     protected $user_model;
+    protected $like_model;
 
     public function __construct()
     {
         $this->blog_model = new \App\BlogModel();
         $this->category_model = new \App\CategoryModel();
         $this->comment_model = new \App\CommentModel();
+        $this->user_model = new \App\UserModel();
         $this->user_model = new \App\UserModel();
     }
 
@@ -70,5 +72,11 @@ class BlogController extends Controller
     {
         $comment = $this->comment_model->comment($request->all());
         return redirect(url('blog').'?id='.$request->get('blog_id').'#comment');
+    }
+
+    public function like(Request $request)
+    {
+        $like = $this->like_model->like($request->all());
+        return redirect()->back();
     }
 }

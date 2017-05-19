@@ -20,6 +20,37 @@ class CommentModel extends Model
                 ->get();
     }
 
+    public function get_comment_by_user_id($user_id, $data)
+    {
+        $page_now = isset($data['p']) ? $data['p'] : 1;
+
+        $get = DB::table('comment')
+                ->whereNull('comment_delete_time')
+                ->join('blog', 'blog.id', '=', 'comment_blog_id')
+                ->whereNull('blog_delete_time')
+                ->join('category', 'category.id', '=', 'blog_category_id')
+                ->whereNull('category_delete_time')
+                ->where('category_user_id', $user_id);
+
+        $page_count = $get;
+        $page_count = $page_count->count();
+        $page_count = ceil($page_count / 10);
+
+        if($page_now > $page_count)
+            $page_now = 1;
+
+        $get = $get->join('user', 'user.id', '=', 'comment_user_id')
+                    ->select('user_name', 'user.id as user_id', 'comment.id', 'comment_content', 'comment_report_num', 'comment_create_time', 'blog.id as blog_id', 'blog_title')
+                    ->offset($page_now * 10 - 10)
+                    ->limit(10)
+                    ->get();
+        return [
+            'data' => $get,
+            'page_now' => $page_now,
+            'page_count' => $page_count
+        ];
+    }
+
     public function comment($data)
     {
         $str = preg_replace('/(<.+?>)|(&nbsp;)/', '', $data['comment']);

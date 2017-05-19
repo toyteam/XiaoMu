@@ -258,4 +258,22 @@ class BlogModel extends Model
             ->where('blog.id', $id)
             ->increment('blog_view_count');
     }
+
+    public function get_blog_by_user_id($user_id, $num = null)
+    {
+        $get = DB::table('blog')
+                ->join('category', 'category.id', '=', 'blog_category_id')
+                ->join('user', 'user.id', '=', 'category_user_id')
+                ->where('user.id', $user_id)
+                ->whereNull('category_delete_time')
+                ->whereNull('blog_delete_time')
+                ->whereNull('blog_undo_time')
+                ->whereNotNull('blog_publish_time')
+                ->select('blog.id', 'blog_title', 'blog_summary');
+        
+        if($num != null)
+            return $get->limit($num)->get();
+
+        return $get->get();
+    }
 }
