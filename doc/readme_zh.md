@@ -18,7 +18,7 @@ XiaoMu博客是一个基于web的博客系统。 它使用php语言，laravel后
 * Chrome V57.0.2987.133
 
 # 如何使用
-首先，将laravel框架下载到您的Web服务器目录，这是Apache或Nginx的文档根目录。 然后将源pull到该目录。 最后，享受你的新博客。
+首先，将laravel(5.4.21)框架下载到您的Web服务器目录，这是Apache或Nginx的文档根目录。 然后将源(src)pull到该目录。 最后，享受你的新博客。
 
 
 ## 数据库字典
