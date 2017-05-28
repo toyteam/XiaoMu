@@ -86,6 +86,7 @@ class BlogModel extends Model
                    ->get();
 
         $count = DB::table('comment')
+                    ->whereNull('comment_delete_time')
                     ->join('blog', 'comment_blog_id', '=', 'blog.id')
                     ->whereNotNull('blog_publish_time')
                     ->whereNull('blog_undo_time')

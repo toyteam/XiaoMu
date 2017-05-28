@@ -167,7 +167,14 @@
                                 <span>2012-12-21 2:35</span>&nbsp;&nbsp;
                                 <span><span class="glyphicon glyphicon-eye-open"></span> 浏览({{$blog->blog_view_count}})</span>&nbsp;&nbsp;
                                 <span class="glyphicon glyphicon-thumbs-up"></span> <a href="#thumb">点赞({{$blog->blog_thumbs_up_count}})</a>&nbsp;&nbsp;
-                                <span class="glyphicon glyphicon-comment"></span> <a href="#comment">评论({{count($comments)}})</a>&nbsp;&nbsp;
+                                <?php
+
+                                    $i = 0;
+                                    foreach ($comments as $comment)
+                                        if($comment->comment_delete_time == null)
+                                            $i++;
+                                ?>
+                                <span class="glyphicon glyphicon-comment"></span> <a href="#comment">评论({{$i}})</a>&nbsp;&nbsp;
                                 <span class="glyphicon glyphicon-plus"></span> <a href="#">收藏</a>&nbsp;&nbsp;
                             </div>
                         </div>

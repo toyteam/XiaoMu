@@ -162,12 +162,12 @@
                                     @endif
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="">
-                                    <span>{{$user_info->user_desc}}</span>
+                                    <span>@if($user_info->user_desc != ""){{$user_info->user_desc}}@else博主还没有自我介绍哦！@endif</span>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="font-size: 24px; margin-bottom: 10px;">
-                                    <div class="col-md-4 col-sm-6 col-xs-12"><span class="label label-success">邮箱 : {{$user_info->user_email}}</span></div>
+                                    <!-- <div class="col-md-4 col-sm-6 col-xs-12"><span class="label label-success">邮箱 : {{$user_info->user_email}}</span></div> -->
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
+                                <div class="" style="margin-bottom: 10px;">
                                     <div class="col-md-4 col-sm-6 col-xs-12"><span>文章数目：{{$blog_count}}</span></div>
                                     <div class="col-md-4 col-sm-6 col-xs-12"><span>浏览次数：{{$user_info->user_profile_view_count}}</span></div>
                                 </div>
@@ -175,8 +175,8 @@
                                 <div>&nbsp;</div>
                                 <div class="col-md-12 col-sm-12 col-xs-12" style="bottom: 0px; position: relative;">
                                     @if(session()->get('user_id', 0) == $user_info->id)
-                                    <a href="{{url('blog/manage/write')}}" class="btn btn-primary " style="bottom: 0px">博客管理</a>
-                                    <button class="btn btn-info btn-circle pull-right"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <!-- <a href="{{url('blog/manage/write')}}" class="btn btn-primary " style="bottom: 0px">博客管理</a> -->
+                                    <!-- <button class="btn btn-info btn-circle pull-right"><span class="glyphicon glyphicon-pencil"></span></button> -->
                                     @endif
                                 </div>
                             </div>

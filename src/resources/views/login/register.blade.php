@@ -87,7 +87,7 @@
                 <button type="submit" class="btn btn-black btn-block">注册</button>
             </div>
             <div class="form-group">
-                <span class="pull-left"><a href="#">站点说明</a></span>
+                <span class="pull-left"><a href="https://github.com/toyteam/XiaoMu/tree/damuking-patch-1">站点说明</a></span>
                 <span class="pull-right"><a href="{{url('login')}}">用户登陆</a></span>
             </div>
             <br>

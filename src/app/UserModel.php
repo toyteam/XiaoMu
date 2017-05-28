@@ -47,6 +47,7 @@ class UserModel extends Model
 
     public function register($data)
     { 
+        // dd($data);
         $insert = [
             'user_name' => $data['name'],
             'user_password' => password_hash($data['password'], PASSWORD_DEFAULT),

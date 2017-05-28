@@ -48,6 +48,7 @@ class UserController extends Controller
       'blogs' => $blogs,
       'is_follow' => $is_follow
     ];
+    // dd($data);
     return view('user.user', $data);
   }
 
@@ -65,6 +66,15 @@ class UserController extends Controller
     if($request->has('id'))
     {
       $follow = $this->follow_model->unfollow($request->get('id'), session()->get('user_id'));
+    }
+    return redirect()->back();
+  }
+
+  public function send_message(Request $request)
+  {
+    if($request->has('message') && $request->has('id'))
+    {
+      $message = $this->message_model->send_message($request->all());
     }
     return redirect()->back();
   }
