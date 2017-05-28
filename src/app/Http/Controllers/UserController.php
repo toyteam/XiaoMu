@@ -74,7 +74,7 @@ class UserController extends Controller
   {
     if($request->has('message') && $request->has('id'))
     {
-      $message = $this->message_model->send_message($request->all());
+      $message = $this->message_model->send_message($request->all(), session()->get('user_id'));
     }
     return redirect()->back();
   }
