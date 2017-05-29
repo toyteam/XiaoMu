@@ -50,8 +50,16 @@ class BlogController extends Controller
 
     public function blog(Request $request)
     {
+        // dd($request->all());
         if($request->has('id'))
         {
+            $password = $request->has('pwd') ? $request->get('pwd') : null;
+            $bool = $this->text_blog_password($request->get('id'), $password);
+            if(!$bool)
+            {
+                return redirect(url('blog/password').'?return_url='.urlencode($request->url()).'&id='.$request->get('id'));
+            }
+
             $increment = $this->blog_model->blog_view_increment($request->get('id'), session()->get('user_id'));
             $blog = $this->blog_model->get_blog($request->get('id'));
             $comments = $this->comment_model->get_comment_by_blog_id($request->get('id'), session()->get('user_id'));
@@ -78,5 +86,31 @@ class BlogController extends Controller
     {
         $like = $this->like_model->like($request->all());
         return redirect()->back();
+    }
+
+    public function password(Request $request)
+    {
+        // dd($request->all());
+        if($request->has('return_url') && $request->has('id'))
+        {
+            $data = [
+                'return_url' => urldecode($request->get('return_url')),
+                'id' => $request->get('id')
+            ];
+            return view('blog.password', $data);
+        }
+        return redirect()->back();
+    }
+
+    public function text_blog_password($id, $getpassword)
+    {
+        $password= $this->blog_model->get_password($id);
+        $bool = ($getpassword == $password);
+        // dd($getpassword);
+        if($getpassword != null && !$bool)
+        {
+            set_error_session('密码错误');
+        }
+        return $bool;
     }
 }

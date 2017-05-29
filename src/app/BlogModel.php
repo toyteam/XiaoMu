@@ -277,4 +277,14 @@ class BlogModel extends Model
 
         return $get->get();
     }
+    
+    public function get_password($id)
+    {
+        $get = DB::table('blog')
+                ->where('id', $id)
+                ->select('blog_view_password')
+                ->first();
+
+        return $get->blog_view_password;
+    }
 }

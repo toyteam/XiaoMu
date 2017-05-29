@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>博客密码</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('pnotify')}}/dist/pnotify.custom.min.css">
+
+    <link href="{{asset('css')}}/myblog.css" rel="stylesheet">
+
+    <style type="text/css">
+        .content{
+            width: 100%; 
+            max-width: 350px;       
+            margin: 0px auto;
+            position: relative;
+        }
+        .login-area{
+            margin: auto;
+            margin-top: 100px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .login-area-title{
+            margin: 30px 0px;
+            text-align: center;
+        }
+
+        .captche{
+            height: 34px;
+            padding: 2px;
+        }
+
+        .my-checkbox{
+            min-height: 20px;
+            margin-bottom: 0px;
+            font-weight: 400;
+        }
+
+        h3{
+            font-weight: 700;
+        }
+
+        .btn-black{
+            background-color: black;
+            border-color: black;
+            color: white;
+        }
+
+        .btn-black:hover{
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="content">
+        <div class="login-area">
+            <div class="login-area-title">
+                <h3>博客密码输入</h3>
+            </div>
+            <form action="{{$return_url}}" method="get">
+                <div class="form-group">
+                    <input type="password" name="pwd" class="form-control" placeholder="请输入密码" autocomplete="off" required="" value="{{old('password')}}">
+                </div>
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-question-sign"></span> <a href="#">博密机制</a>
+                    <input type="hidden" name="id" value="{{$id}}"/>
+                    <input type="submit" class="btn btn-primary pull-right" value="提交"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="{{asset('pnotify')}}/dist/pnotify.custom.min.js"></script>
+
+
+    @if(session()->has('info'))
+    <script>
+      $(document).ready(function() {
+        new PNotify({
+          title: '{!!session()->get('info')['title']!!}',
+          text: '{!!session()->get('info')['text']!!}',
+          delay: 5000,
+          type: 'info',
+          styling: 'bootstrap3'
+        });
+      });
+    </script>
+    @endif
+    @if(session()->has('error'))
+    <script>
+      $(document).ready(function() {
+        new PNotify({
+          title: '{!!session()->get('error')['title']!!}',
+          text: '{!!session()->get('error')['text']!!}',
+          delay: 5000,
+          type: 'error',
+          styling: 'bootstrap3'
+        });
+      });
+    </script>
+    @endif
+    @if(session()->has('success'))
+    <script>
+      $(document).ready(function() {
+        new PNotify({
+          title: '{!!session()->get('success')['title']!!}',
+          text: '{!!session()->get('success')['text']!!}',
+          delay: 5000,
+          type: 'success',
+          styling: 'bootstrap3'
+        });
+      });
+    </script>
+    @endif
+</body>
+</html>

@@ -92,57 +92,6 @@
             <div class="desc"></div>
         </div>
         <div class="row">
-<!--             <div class="mb-left">
-                <div class="mb-block user-info">
-                    <div class="mb-block-title">个人信息</div>
-                    <div class="mb-block-content">
-                        <img class="user-img width="100%" img width="100%"-rounded" src="default.jpg" width="100%"><br><br>
-
-                        <p class="user-name">lichaoxi</p>
-
-                        <div class="user-btn">
-                            <button class="btn btn-info btn-xs">关注</button>
-                            <button class="btn btn-info btn-xs">私信</button>
-                        </div><br>
-
-                        <div class="user-page-info">
-                            <p>访问：100次</p>
-                            <p>关注：1013人</p>
-                            <p>粉丝：10000人</p>
-                            <p>博文：115篇</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-block search">
-                    <div class="mb-block-title">搜索栏目</div>
-                    <div class="mb-block-content">
-                        <form action="search.php" method="get">
-                            <div class="form-group has-success">
-                                <input type="" name="s" class="form-control" placeholder="查找博客">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="mb-block category">
-                    <div class="mb-block-title">博客分类</div>
-                    <div class="mb-block-content">
-                        <ul>
-                            <li><a href="#">Android</a> <span>(31)</span></li>
-                            <li><a href="#">Flex</a> <span>(1)</span></li>
-                            <li><a href="#">iPhone开发</a> <span>(400)</span></li>
-                            <li><a href="#">javaEE</a> <span>(13)</span></li>
-                            <li><a href="#">javascript</a> <span>(4)</span></li>
-                            <li><a href="#">Oracle</a> <span>(1)</span></li>
-                            <li><a href="#">一步一步学grails</a> <span>(11)</span></li>
-                            <li><a href="#">系统管理</a> <span>(3)</span></li>
-                            <li><a href="#">Mac OS X</a> <span>(10)</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div> -->
             <div class="">
                 <div class="bolg-info mb-block">
                     <div class="mb-block-title">博客内容</div>
@@ -152,7 +101,7 @@
                                 <div class="user">
                                     <img src="{{$user->user_image_path}}" class="img-circle">&nbsp;
                                     <span class="after-img-info">
-                                        <div class="user-name-sm">{{$user->user_name}}</div>
+                                        <div class="user-name-sm"><a href="{{url('user')}}?id={{$user->id}}">{{$user->user_name}}</a></div>
                                         <div class="user-bio-sm">360首席科学家颜水成教授</div>
                                     </span>
 

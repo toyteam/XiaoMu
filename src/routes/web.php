@@ -90,7 +90,7 @@ Route::group(['middleware' => 'IsLogin'], function() {
         Route::get('/like', 'BlogController@like');
         Route::get('/unlike', 'BlogController@unlike');
 
-    
+        Route::get('/password', 'BlogController@password');
     });
 
 });

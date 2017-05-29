@@ -75,8 +75,8 @@
                                                             </div>
                                                             <div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <label for="pwd">密码<span class="kv-reqd">*</span></label>
-                                                                    <input class="form-control" type="password" name="user_password" value="******" required>
+                                                                    <label for="pwd">密码</label><span><a class="pull-right" href="#">修改密码</a></span>
+                                                                    <input class="form-control" type="password" name="user_password" value="******" required disabled>
                                                                 </div>
                                                             </div>
                                                         </div>

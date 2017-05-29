@@ -131,7 +131,7 @@ class UserModel extends Model
     {
         $update = [
             "user_name" => $data['user_name'],
-            "user_password" => password_hash($data['user_password'], PASSWORD_DEFAULT),
+            // "user_password" => password_hash($data['user_password'], PASSWORD_DEFAULT),
             "user_email" => $data['user_email'],
             "user_phone" => $data['user_phone'],
             "user_qq" => $data['user_qq']
