@@ -126,4 +126,22 @@ class UserModel extends Model
             ->where('user.id', $user_id)
             ->increment('user_profile_view_count');
     }
+
+    public function edit($data, $avatar, $thumb)
+    {
+        $update = [
+            "user_name" => $data['user_name'],
+            "user_password" => password_hash($data['user_password'], PASSWORD_DEFAULT),
+            "user_email" => $data['user_email'],
+            "user_phone" => $data['user_phone'],
+            "user_qq" => $data['user_qq']
+        ];
+
+        if($avatar != null) $update["user_image_path"] = $avatar;
+        if($thumb != null) $update["user_alipay_picture_path"] = $thumb;
+
+        return DB::table('user')
+                ->where('id', $data['id'])
+                ->update($update);
+    }
 }

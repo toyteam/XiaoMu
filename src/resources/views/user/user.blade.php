@@ -8,15 +8,24 @@
     }
 </style>
 <style>
-
+.kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+}
 .kv-avatar .file-input {
     display: table-cell;
     max-width: 220px;
 }
-.file-input .file-default-preview{
-    width: 160px;
+.kv-reqd {
+    color: red;
+    font-family: monospace;
+    font-weight: normal;
 }
 </style>
+
 @stop
 
 @section('col')
@@ -44,52 +53,66 @@
                                         <ul class="list-group">
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <li class=""> 
-                                                <form class="form-horizontal form-label-left">
-                                                    <div class="form-group">
-                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">用户头像<br>/ 打赏二维码</label>
-                                                        <div class="col-md-3 col-sm-3 col-xs-12" style="width: 200px;">
-                                                            <input id="avatar" name="avatar" type="file" class="file-loading">
+                                                <form action="{{url('user/edit')}}" class="form-horizontal form-label-left form form-vertical" method="post" enctype="multipart/form-data">
+                                                <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <div class="kv-avatar center-block text-center" style="width:160px">
+                                                                <input id="avatar" name="avatar" type="file" class="file-loading">
+                                                                <div class="help-block"><small>选择新的头像</small></div>
+                                                            </div>
+                                                            <div class="kv-avatar center-block text-center" style="width:160px">
+                                                                <input id="alipay" name="alipay" type="file" class="file-loading">
+                                                                <div class="help-block"><small>选择新的打赏二维码</small></div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-3 col-sm-3 col-xs-12" style="width: 200px;">
-                                                            <input id="alipay" name="alipay" type="file" class="file-loading">
+                                                        <div class="col-sm-8">
+                                                        <div class="row">
+                                                            <div class="col-sm-5 col-md-5 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="email">用户名<span class="kv-reqd">*</span></label>
+                                                                    <input class="form-control" type="text" name="user_name" value="{{$user_info->user_name}}" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="pwd">密码<span class="kv-reqd">*</span></label>
+                                                                    <input class="form-control" type="password" name="user_password" value="******" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-5 col-md-5 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="fname">邮箱<span class="kv-reqd">*</span></label>
+                                                                    <input class="form-control" type="email" name="user_email" value="{{$user_info->user_email}}" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="lname">手机</label>
+                                                                    <input class="form-control" type="text" name="user_phone" value="{{$user_info->user_phone}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-5 col-md-5 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label for="fname">QQ</label>
+                                                                    <input class="form-control" type="text" name="user_qq" value="{{$user_info->user_qq}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <hr>
+                                                            <div class="text-right">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                <input type="hidden" name="id" value="{{$user_info->id}}">
+                                                                <button type="submit" class="btn btn-primary">保存</button>
+                                                            </div>
+                                                        </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">用户名</label>
-                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                            <input class="form-control col-md-7 col-xs-12" type="text" name="user_name" value="{{$user_info->user_name}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">密码</label>
-                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                            <input class="form-control col-md-7 col-xs-12" type="password" name="user_password" value="******">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">邮箱</label>
-                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                            <input class="form-control col-md-7 col-xs-12" type="email" name="user_email" value="{{$user_info->user_email}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">手机</label>
-                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                            <input class="form-control col-md-7 col-xs-12" type="text" name="user_phone" value="{{$user_info->user_phone}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">QQ</label>
-                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                            <input class="form-control col-md-7 col-xs-12" type="text" name="user_qq" value="{{$user_info->user_qq}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
-                                                        <div class="col-md-2 col-sm-3 col-xs-12">
-                                                            <button class="form-control btn btn-primary" type="submit">保存</button>
-                                                        </div>
-                                                    </div>
+                                                    <div id="kv-avatar-errors-1" class="center-block" style="width:800px;display:none"></div>
                                                 </form>
                                             </li>
                                         </ul>
@@ -168,8 +191,7 @@
                                                 <div class="user">
                                                     <img src="{{$user->user_image_path}}" class="img-circle">&nbsp;
                                                     <span class="after-img-info">
-                                                        <div class="user-name-sm"><a href="{{url('user')}}?id={{$user->id}}">{{$user->user_name}}</a></div>
-                                                        <div class="user-bio-sm">{{$user->user_desc}}</div>
+                                                        <div class="user-name-sm"><a href="{{url('user')}}?id={{$message->user_id}}">{{$message->user_name}}</a></div>
                                                     </span>
                                                 </div>
                                                 <div>{{$message->message_content}}</div>
@@ -182,11 +204,12 @@
                                             @endif
                                             <br>
                                             <div class="row">
-                                                <form action="{{url('message')}}" method="post">
+                                                <form action="{{url('user/message')}}" method="post">
                                                 <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                                                    <textarea class="form-control" rows="5" placeholder="此处输入留言"></textarea>
+                                                    <textarea class="form-control" rows="5" name="message" placeholder="此处输入留言"></textarea>
                                                 </div>
                                                 <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right;">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="hidden" name="id" value="{{$user_info->id}}">
                                                     <button class="btn btn-success">提交</button>
                                                 </div>
@@ -213,44 +236,48 @@
     $('.tabcordion').tabcordion();
 </script>
 <script>
+var btnCust = '<button type="button" class="btn btn-default" title="点我查看详情" ' + 
+    'onclick="alert(\'文件大小不要超过3M\')">' +
+    '<i class="glyphicon glyphicon-question-sign"></i>' +
+    '</button>'; 
 $("#avatar").fileinput({
     overwriteInitial: true,
-    maxFileSize: 1500,
+    maxFileSize: 3072,
     showClose: false,
     showCaption: false,
-    showRemove: false,
-    showUpload: false,
-    showBrowse: false,
-    browseOnZoneClick: true,
+    browseLabel: '',
+    removeLabel: '',
+    browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+    removeTitle: '取消',
+    elErrorContainer: '#kv-avatar-errors-1',
+    msgErrorClass: 'alert alert-block alert-danger',
     defaultPreviewContent: '<img src="{{$user_info->user_image_path}}" alt="用户头像" style="width:160px; height:160px;">',
+    layoutTemplates: {main2: '{preview} ' +  btnCust + ' {remove} {browse}'},
     allowedFileExtensions: ["jpg", "png", "gif"]
-}).on("filebatchselected", function(event, files) {
-            $(this).fileinput("upload");
-        }).on("fileuploaded", function(event, data) {
-          if(data.response)
-          {
-            location.reload(true);
-          }
-        });
+});
+
+var btnCust2 = '<button type="button" class="btn btn-default" title="点我查看详情" ' + 
+    'onclick="alert(\'文件大小不要超过3M\')">' +
+    '<i class="glyphicon glyphicon-question-sign"></i>' +
+    '</button>'; 
 $("#alipay").fileinput({
     overwriteInitial: true,
-    maxFileSize: 1500,
+    maxFileSize: 3072,
     showClose: false,
     showCaption: false,
-    showRemove: false,
-    showUpload: false,
-    showBrowse: false,
-    browseOnZoneClick: true,
-    defaultPreviewContent: '<img src="{{$user_info->user_alipay_picture_path}}" alt="用户头像" style="width:160px; height:160px;">',
+    browseLabel: '',
+    removeLabel: '',
+    browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+    removeTitle: '取消',
+    elErrorContainer: '#kv-avatar-errors-1',
+    msgErrorClass: 'alert alert-block alert-danger',
+    defaultPreviewContent: '<img src="{{$user_info->user_alipay_picture_path}}" alt="打赏二维码" style="width:160px; height:160px;">',
+    layoutTemplates: {main2: '{preview} ' +  btnCust2 + ' {remove} {browse}'},
     allowedFileExtensions: ["jpg", "png", "gif"]
-}).on("filebatchselected", function(event, files) {
-            $(this).fileinput("upload");
-        }).on("fileuploaded", function(event, data) {
-          if(data.response)
-          {
-            location.reload(true);
-          }
-        });
+});
+
 </script>
 @stop
 

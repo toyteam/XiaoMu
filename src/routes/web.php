@@ -36,6 +36,10 @@ Route::group(['middleware' => 'IsLogin'], function() {
         Route::get('/follow', 'UserController@follow');
         Route::get('/unfollow', 'UserController@unfollow');
 
+        Route::post('/message', 'UserController@send_message');
+
+        Route::post('/edit', 'UserController@edit');
+
     });
 
     Route::group(['prefix' => 'blog'], function() {
