@@ -15,6 +15,9 @@ class IsNotLogin
      */
     public function handle($request, Closure $next)
     {
+        if(session()->get('user_is_login', false))
+            return redirect('user');
+
         return $next($request);
     }
 }

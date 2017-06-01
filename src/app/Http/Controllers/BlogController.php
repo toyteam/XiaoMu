@@ -25,7 +25,9 @@ class BlogController extends Controller
     {
         if($request->has('id'))
         {
-            $result = $this->blog_model->publish_blog($request->get('id'));
+            $result = $this->blog_model->publish_blog($request->get('id'), session()->get('user_id', 0));
+            if(!$result)
+                set_error_session('您没有权限发布此博客');
         }
         return redirect()->back();
     }
@@ -34,7 +36,9 @@ class BlogController extends Controller
     {
         if($request->has('id'))
         {
-            $result = $this->blog_model->undo_blog($request->get('id'));
+            $result = $this->blog_model->undo_blog($request->get('id'), session()->get('user_id', 0));
+            if(!$result)
+                set_error_session('您没有权限撤回此博客');
         }
         return redirect()->back();
     }
@@ -43,14 +47,15 @@ class BlogController extends Controller
     {
         if($request->has('id'))
         {
-            $result = $this->blog_model->delete_blog($request->get('id'));
+            $result = $this->blog_model->delete_blog($request->get('id'), session()->get('user_id', 0));
+            if(!$result)
+                set_error_session('您没有权限删除此博客');
         }
         return redirect()->back();
     }
 
     public function blog(Request $request)
     {
-        // dd($request->all());
         if($request->has('id'))
         {
             $password = $request->has('pwd') ? $request->get('pwd') : null;

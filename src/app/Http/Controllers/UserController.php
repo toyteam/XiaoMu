@@ -11,6 +11,7 @@ class UserController extends Controller
   protected $blog_model;
   protected $follow_model;
   protected $message_model;
+  protected $cgat_model;
 
   public function __construct()
   {
@@ -18,6 +19,7 @@ class UserController extends Controller
     $this->blog_model = new \App\BlogModel();
     $this->follow_model = new \App\FollowModel();
     $this->message_model = new \App\MessageModel();
+    $this->chat_model = new \App\ChatModel();
   }
 
   public function user(Request $request)
@@ -26,22 +28,22 @@ class UserController extends Controller
     {
       $this->user_model->user_view_increment($request->get('id'), session()->get('user_id'));
       $user_info = $this->user_model->get_user($request->get('id'));
-      // $user_dynamic = $this->user_model->get_user_dynamic($request->get('id'));
       $user_follow = $this->follow_model->get_user_follow($request->get('id'));
       $follow_user = $this->follow_model->get_follow_user($request->get('id'));
       $blogs = $this->blog_model->get_blog_by_user_id($request->get('id'));
       $is_follow = $this->follow_model->is_follow($request->get('id'), session()->get('user_id'));
       $messages = $this->message_model->get_message_by_target($request->get('id'));
+      $chats = $this->chat_model->get_chat_by_target_and_create($request->get('id'), session()->get('user_id'));
     }
     else
     {
       $user_info = $this->user_model->get_user(session()->get('user_id'));
-      // $user_dynamic = $this->user_model->get_user_dynamic(session()->get('user_id'));
       $user_follow = $this->follow_model->get_user_follow(session()->get('user_id'));
       $follow_user = $this->follow_model->get_follow_user(session()->get('user_id'));
       $blogs = $this->blog_model->get_blog_by_user_id(session()->get('user_id'));
       $is_follow = false;
       $messages = $this->message_model->get_message_by_target(session()->get('user_id'));
+      $chats = $this->chat_model->get_chat_by_target_and_create(session()->get('user_id'));
     }
 
     $data = [
@@ -53,6 +55,7 @@ class UserController extends Controller
       'blogs' => $blogs,
       'is_follow' => $is_follow,
       'messages' => $messages,
+      'chats' => $chats,
     ];
     // dd($data);
     return view('user.user', $data);
@@ -85,6 +88,17 @@ class UserController extends Controller
     return redirect()->back();
   }
 
+  public function send_chat(Request $request)
+  {
+    // dd($request->all());
+    if($request->has('chat') && $request->has('id'))
+    {
+      $message = $this->chat_model->send_chat($request->all(), session()->get('user_id'));
+    }
+    return redirect()->back();
+  }
+
+
   public function edit(Request $request)
   {
     $error_message = '';
@@ -112,6 +126,15 @@ class UserController extends Controller
 
     $edit = $this->user_model->edit($request->all(), $save_avatar, $save_thumb);
 
+    return redirect()->back();
+  }
+
+  public function delete_message(Request $request)
+  {
+    if($request->has('id'))
+    {
+      $delete = $this->message_delete($request->get('user_id'));
+    }
     return redirect()->back();
   }
 

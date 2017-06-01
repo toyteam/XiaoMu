@@ -201,24 +201,30 @@ class BlogModel extends Model
         ];
     }
 
-    public function publish_blog($id)
+    public function publish_blog($id, $user_id)
     {
         return DB::table('blog')
-                ->where('id', $id)
+                ->where('blog.id', $id)
+                ->join('category', 'blog_category_id', '=', 'category.id')
+                ->where('category_user_id', $user_id)
                 ->update(['blog_publish_time' => date('Y-m-d H:i:s'), 'blog_undo_time' => null]);
     }
 
-    public function undo_blog($id)
+    public function undo_blog($id, $user_id)
     {
         return DB::table('blog')
-                ->where('id', $id)
+                ->where('blog.id', $id)
+                ->join('category', 'blog_category_id', '=', 'category.id')
+                ->where('category_user_id', $user_id)
                 ->update(['blog_undo_time' => date('Y-m-d H:i:s')]);
     }
 
-    public function delete_blog($id)
+    public function delete_blog($id, $user_id)
     {
         return DB::table('blog')
-                ->where('id', $id)
+                ->where('blog.id', $id)
+                ->join('category', 'blog_category_id', '=', 'category.id')
+                ->where('category_user_id', $user_id)
                 ->update(['blog_delete_time' => date('Y-m-d H:i:s')]);
     }
 
@@ -228,7 +234,7 @@ class BlogModel extends Model
                 ->where('blog.id', $id)
                 ->join('category', 'category.id', '=', 'blog_category_id')
                 ->join('user', 'category_user_id', '=', 'user.id')
-                ->select('blog.id', 'user_name', 'category_name', 'blog_title', 'blog_content', 'blog_view_password', 'blog_view_count', 'blog_thumbs_up_count', 'blog_tags', 'blog_is_public', 'blog_publish_time', 'blog_undo_time', 'blog_delete_time')
+                ->select('blog.*', 'user_name', 'category_name')
                 ->first();
 
         $blog->blog_tags = $blog->blog_tags == "" ? [] : explode(',', $blog->blog_tags);

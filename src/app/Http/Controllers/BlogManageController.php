@@ -37,6 +37,23 @@ class BlogManageController extends Controller
         return redirect('blog/manage/write');
     }
 
+    public function edit(Request $request)
+    {
+        if($request->has('id'))
+        {
+            $categorys = $this->category_model->get_categorys_by_user_id(session()->get('user_id'));
+            $blog = $this->blog_model->get_blog($request->get('id'));
+            $data = [
+                'url' => 'url_edit',
+                'categorys' => $categorys,
+                'blog' => $blog
+            ];
+
+            return view('blog.manage.edit', $data);
+        }
+        return redirect()->back();
+    }
+
     public function draft(Request $request)
     {
         $info = $this->blog_model->get_draft_blog(session()->get('user_id'), $request->all());
@@ -134,7 +151,7 @@ class BlogManageController extends Controller
         $delete = $this->category_model->delete_category($request->all(), session()->get('user_id'));
 
         if(!$delete)
-            set_error_session('分类删除失败，分类已存在');
+            set_error_session('分类删除失败，分类不存在');
         else
             set_success_session('分类删除成功');
         

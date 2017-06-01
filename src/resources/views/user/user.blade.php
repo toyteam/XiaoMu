@@ -44,7 +44,8 @@
                                     <li><a data-target="#user_follow" href="#">他关注的人</a></li>
                                     <li><a data-target="#follow_user" href="#">关注他的人</a></li>
                                     <li><a data-target="#message" href="#">留言</a></li>
-                                    <span class="pull-right"><a class="btn btn-primary" href="{{url('blog/manage/write')}}">文章管理</a></span>
+                                    <li><a data-target="#chat" href="#">私信</a></li>
+                                    <span class="pull-right"><a class="btn btn-primary" href="#" onclick="window.location='{{url('blog/manage/write')}}'">文章管理</a></span>
                                 </ul>
 
                                 <div class="tab-content">
@@ -52,7 +53,7 @@
                                     <div id="profile" class="active in tab-div" style="">
                                         <ul class="list-group">
                                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <li class=""> 
+                                            <li class="">
                                                 <form action="{{url('user/edit')}}" class="form-horizontal form-label-left form form-vertical" method="post" enctype="multipart/form-data">
                                                 <div class="row">
                                                         <div class="col-sm-4">
@@ -90,7 +91,7 @@
                                                             <div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label for="lname">手机</label>
-                                                                    <input class="form-control" type="text" name="user_phone" value="{{$user_info->user_phone}}">
+                                                                    <input class="form-control" type="text" name="user_phone" value="{{$user_info->user_phone}}" placeholder="手机可以用来找回密码哦...">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -98,16 +99,25 @@
                                                             <div class="col-sm-5 col-md-5 col-xs-12">
                                                                 <div class="form-group">
                                                                     <label for="fname">QQ</label>
-                                                                    <input class="form-control" type="text" name="user_qq" value="{{$user_info->user_qq}}">
+                                                                    <input class="form-control" type="text" name="user_qq" value="{{$user_info->user_qq}}" placeholder="我可是有QQ号的博主...">
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-11 col-md-11 col-xs-11">
+                                                                <div class="form-group">
+                                                                    <label for="fname">自我介绍</label>
+                                                                    <textarea class="form-control" name="user_desc" placeholder="介绍一下自己吧..." maxlength="30">{{$user_info->user_desc}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
                                                         <div class="form-group">
                                                             <hr>
-                                                            <div class="text-right">
+                                                            <div class="col-md-offset-9 col-sm-offset-9 col-md-2" style="padding-right: 0px;">
                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                 <input type="hidden" name="id" value="{{$user_info->id}}">
-                                                                <button type="submit" class="btn btn-primary">保存</button>
+                                                                <button type="submit" class="btn btn-primary pull-right">保存</button>
                                                             </div>
                                                         </div>
                                                         </div>
@@ -189,11 +199,14 @@
                                             @foreach($messages as $message)
                                             <li class="list-item"> 
                                                 <div class="user">
-                                                    <img src="{{$user->user_image_path}}" class="img-circle">&nbsp;
+                                                    <img src="{{$message->user_image_path}}" class="img-circle">&nbsp;
                                                     <span class="after-img-info">
                                                         <div class="user-name-sm"><a href="{{url('user')}}?id={{$message->user_id}}">{{$message->user_name}}</a></div>
                                                     </span>
                                                 </div>
+                                                @if(session()->get('user_id', 0) == $user_info->id)
+                                                <span class="pull-right"><a href="{{url('user/message/delete')}}?id={{$message->id}}">删除</a></span>
+                                                @endif
                                                 <div>{{$message->message_content}}</div>
                                             </li>
                                             @endforeach
@@ -218,7 +231,43 @@
                                         </ul>
                                     </div>
 
-
+                                    <div id="chat" class=" tab-div" style="">
+                                        <ul class="list-group">
+                                            @if(isset($chats) && count($chats) > 0)
+                                            @foreach($chats as $chat)
+                                            <li class="list-item"> 
+                                                <div class="user">
+                                                    <img src="{{$chat->user_image_path}}" class="img-circle">&nbsp;
+                                                    <span class="after-img-info">
+                                                        <div class="user-name-sm"><a href="{{url('user')}}?id={{$chat->user_id}}">{{$chat->user_name}}</a></div>
+                                                    </span>
+                                                </div>
+                                                @if(session()->get('user_id', 0) == $user_info->id)
+                                                <span class="pull-right"><a href="{{url('user/chat/delete')}}?id={{$chat->id}}">删除</a></span>
+                                                @endif
+                                                <div>{{$chat->chat_content}}</div>
+                                            </li>
+                                            @endforeach
+                                            @else
+                                            <li class="list-item">
+                                                <center>您还未给博主发过私信哦</center>
+                                            </li>
+                                            @endif
+                                            <br>
+                                            <div class="row">
+                                                <form action="{{url('user/chat')}}" method="post">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                    <textarea class="form-control" rows="5" name="chat" placeholder="此处输入您要说的话"></textarea>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right;">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="hidden" name="id" value="{{$user_info->id}}">
+                                                    <button class="btn btn-success">提交</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </ul>
+                                    </div>
                                 </div>
 
                             </div>

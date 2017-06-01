@@ -49,6 +49,15 @@
         .btn-thumbs{
             padding: 16px;
         }
+        blockquote {
+            display: block;
+            border-left: 8px solid #d0e5f2;
+            padding: 5px 10px;
+            margin: 10px 0;
+            line-height: 1.4;
+            font-size: 100%;
+            background-color: #f1f1f1;
+        }
     </style>
 
 </head>
@@ -102,7 +111,7 @@
                                     <img src="{{$user->user_image_path}}" class="img-circle">&nbsp;
                                     <span class="after-img-info">
                                         <div class="user-name-sm"><a href="{{url('user')}}?id={{$user->id}}">{{$user->user_name}}</a></div>
-                                        <div class="user-bio-sm">360首席科学家颜水成教授</div>
+                                        <div class="user-bio-sm">{{$user->user_desc}}</div>
                                     </span>
 
                                 </div>
@@ -142,7 +151,7 @@
                                 <br>
                                 <div id="comment"></div>
                                 <div style="width: 100%; text-align: center">
-                                    <a href="{{url('blog/like')}}?id={{$blog->id}}" class="btn btn-thumbs btn-lg btn-circle btn-default"><span class="glyphicon glyphicon glyphicon-thumbs-up"></span></a>
+                                    <button onclick="window.location.href='{{url('blog/like')}}?id={{$blog->id}}'" class="btn btn-thumbs btn-lg btn-circle btn-default"><span class="glyphicon glyphicon glyphicon-thumbs-up"></span></button>
                                     <button class="btn btn-lg btn-circle btn-default" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon glyphicon-yen"></span></button>
                                 </div>
                             </div>
@@ -211,7 +220,7 @@
                     </h4>
                 </div>
                 <div class="modal-body" style="text-align: center;">
-                    <img src="{{asset('')}}image/alipay.png" width="100%">
+                    <img src="{{$user->user_alipay_picture_path}}" width="100%">
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -267,10 +276,33 @@
     </script>
 
     <script>
-
+        var HtmlUtil = {
+            /*1.用浏览器内部转换器实现html转码*/
+            htmlEncode:function (html){
+                //1.首先动态创建一个容器标签元素，如DIV
+                var temp = document.createElement ("div");
+                //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+                (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+                //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+                var output = temp.innerHTML;
+                temp = null;
+                return output;
+            },
+            /*2.用浏览器内部转换器实现html解码*/
+            htmlDecode:function (text){
+                //1.首先动态创建一个容器标签元素，如DIV
+                var temp = document.createElement("div");
+                //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+                temp.innerHTML = text;
+                //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+                var output = temp.innerText || temp.textContent;
+                temp = null;
+                return output;
+            }
+        };
         $(document).ready(function(){
             $('.btn-reply').click(function(e){
-                var id = $(e.target).val();
+                editor.$txt.html('<blockquote>'+$('#reply_'+$(this).val()).html()+'</blockquote><p><br></p>');
 
             });
         });

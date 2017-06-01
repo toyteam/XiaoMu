@@ -65,7 +65,7 @@ class UserModel extends Model
                 ->join('category', 'category_user_id', '=', 'user.id')
                 ->join('blog', 'blog_category_id', '=', 'category.id')
                 ->where('blog.id', $blog_id)
-                ->select('user.id', 'user_name', 'user_alipay_picture_path', 'user_image_path')
+                ->select('user.id', 'user_name', 'user_alipay_picture_path', 'user_image_path', 'user_desc')
                 ->first();
     }
 
@@ -131,6 +131,7 @@ class UserModel extends Model
     {
         $update = [
             "user_name" => $data['user_name'],
+            "user_desc" => $data['user_desc'],
             // "user_password" => password_hash($data['user_password'], PASSWORD_DEFAULT),
             "user_email" => $data['user_email'],
             "user_phone" => $data['user_phone'],

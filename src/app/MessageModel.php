@@ -26,7 +26,7 @@ class MessageModel extends Model
                 ->whereNull('message_delete_time')
                 ->where('message_target_user_id', $target_user_id)
                 ->join('user', 'message_create_user_id', '=', 'user.id')
-                ->select('user.id as user_id', 'user_name', 'message.*')
+                ->select('user.id as user_id', 'user_name', 'message.*', 'user_image_path')
                 ->orderBy('message_create_time', 'desc')
                 ->get();
 

@@ -12,10 +12,11 @@
 */
 Route::any('upload_image', 'FileController@upload_image');
 
+Route::get('/', function() {
+    return view('index');
+});
 
 Route::group(['middleware' => 'IsNotLogin'], function() {
-
-    Route::get('/', 'LoginController@login');
 
     Route::get('/login', 'LoginController@login');
     Route::post('/login', 'LoginController@login2');
@@ -36,7 +37,21 @@ Route::group(['middleware' => 'IsLogin'], function() {
         Route::get('/follow', 'UserController@follow');
         Route::get('/unfollow', 'UserController@unfollow');
 
-        Route::post('/message', 'UserController@send_message');
+        Route::group(['prefix' => 'message'], function() {
+
+            Route::post('/', 'UserController@send_message');
+            Route::get('/delete', 'UserController@delete_message');
+
+        });
+        
+        Route::group(['prefix' => 'chat'], function() {
+
+            Route::post('/', 'UserController@send_chat');
+            Route::get('/delete', 'UserController@delete_chat');
+
+        });
+
+
 
         Route::post('/edit', 'UserController@edit');
 
@@ -65,11 +80,14 @@ Route::group(['middleware' => 'IsLogin'], function() {
                 Route::get('/delete', 'BlogManageController@category_delete');
 
             });
-            
+
+
             Route::get('/comment', 'BlogManageController@comment');
         
         });
 
+        Route::get('/edit', 'BlogManageController@edit');
+        
         Route::get('/', 'BlogController@blog');
 
         Route::get('/publish', 'BlogController@publish');

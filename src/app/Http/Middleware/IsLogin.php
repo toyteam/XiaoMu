@@ -15,7 +15,9 @@ class IsLogin
      */
     public function handle($request, Closure $next)
     {
-        // return redirect('login');
+        if(!session()->get('user_is_login', false))
+            return redirect('login');
+            
         return $next($request);
     }
 }
