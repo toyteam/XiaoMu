@@ -14,7 +14,7 @@ class UserModel extends Model
     {
         $get = DB::table('user')
                 ->where('user_email', $data['email'])
-                ->select('id', 'user_name', 'user_password', 'user_is_activate', 'user_lock_time')
+                ->select('id', 'user_name', 'user_password', 'user_is_activate', 'user_lock_time', 'user_is_admin')
                 ->first();
 
         if(!$get)
@@ -32,6 +32,7 @@ class UserModel extends Model
         session()->put('user_id', $get->id);
         session()->put('user_name', $get->user_name);
         session()->put('user_is_login', true);
+        session()->put('user_is_admin', $get->user_is_admin);
 
         $update = [
             'user_lastest_login_time' => date('Y-m-d H:i:s'),

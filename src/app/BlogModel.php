@@ -293,4 +293,11 @@ class BlogModel extends Model
 
         return $get->blog_view_password;
     }
+
+    public function thumbs_up_increment($id)
+    {
+        return DB::table('blog')
+                ->where('id', $id)
+                ->increment('blog_thumbs_up_count');
+    }
 }

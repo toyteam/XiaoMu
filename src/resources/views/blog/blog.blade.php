@@ -95,7 +95,7 @@
         </div>
     </nav>
 
-    <div class="container" style="max-width: 750px;">
+    <div class="container" style="max-width: 900px;">
         <div class="mb-view-title">
             <h1>{{$user->user_name}}的Blog</h1>
             <div class="desc"></div>
@@ -168,7 +168,7 @@
                         @foreach($comments as $comment)
                             @if($comment->comment_delete_time == null)
                             <div class="user-comment">
-                                <div class="user-img"><img src="{{asset('image')}}/default.jpg" width="100%"></div>
+                                <div class="user-img"><img src="{{$comment->user_image_path}}" width="100%"></div>
                                 <div class="comment-info">
                                     <span class="pull-left">{{$comment->user_name}} {{$comment->comment_create_time}}</span>
                                     <span class="pull-right">#{{$i}}</span><br>

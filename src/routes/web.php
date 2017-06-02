@@ -15,6 +15,16 @@ Route::any('upload_image', 'FileController@upload_image');
 Route::get('/', function() {
     return view('index');
 });
+Route::get('/index', function() {
+    return view('index');
+});
+
+Route::get('/admin', function() {
+    if(session()->get('user_is_admin'))
+        return view('admin.admin');
+    else
+        return redirect('/');
+});
 
 Route::group(['middleware' => 'IsNotLogin'], function() {
 

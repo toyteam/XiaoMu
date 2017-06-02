@@ -18,7 +18,7 @@ class BlogController extends Controller
         $this->category_model = new \App\CategoryModel();
         $this->comment_model = new \App\CommentModel();
         $this->user_model = new \App\UserModel();
-        $this->user_model = new \App\UserModel();
+        $this->like_model = new \App\LikeModel();
     }
 
     public function publish(Request $request)
@@ -89,7 +89,12 @@ class BlogController extends Controller
 
     public function like(Request $request)
     {
-        $like = $this->like_model->like($request->all());
+        if($request->has('id'))
+        {
+            $like = $this->like_model->like($request->get('id'), session()->get('user_id'));
+            if($like)
+                $this->blog_model->thumbs_up_increment($request->get('id'));
+        }
         return redirect()->back();
     }
 
