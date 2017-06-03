@@ -6,17 +6,29 @@ require_once(app_path().'/Http/Function.php');
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Storage;
 
 class BlogModel extends Model
 {
+    public function create_blog()
+    {
+        return DB::table('blog')
+                ->insertGetId(['blog_is_usefull' => false]);
+    }
+
     public function write($data)
     {
         // dd($data);
+        // if($this->save_files($data['files']))
+        // {
+
+        // }
+        $str1 = preg_replace('/(<.+?>)|(&.+?;)/', '', $data['content']);
         $insert = [];
         $insert['blog_tags']          = null == $data['tag'] ? '' : $data['tag'];
         $insert['blog_title']         = null == $data['title'] ? '' : $data['title'];
         $insert['blog_content']       = null == $data['content'] ? '' : $data['content'];
-        $insert['blog_summary']       = null == $data['summary'] ? substr_utf8(preg_replace('/(<.+?>)|(&.+?;)/', '', $data['content']), 0, 200) : $data['summary'];
+        $insert['blog_summary']       = null == $data['summary'] ? ($str1 != '' ? substr_utf8($str1,  0, 200) : '') : $data['summary'];
         $insert['blog_is_public']     = isset($data['is_public']);
         $insert['blog_index_top']     = isset($data['index_top']);
         $insert['blog_category_id']   = isset($data['category']) ? $data['category'] : 0;
@@ -29,9 +41,33 @@ class BlogModel extends Model
 
         $insert['blog_create_time'] = date('Y-m-d H:i:s');
         $insert['blog_view_count'] = 0;
+        $insert['blog_is_usefull'] = 1;
 
         return DB::table('blog')
-                ->insert($insert);
+                ->where('id', $data['id'])
+                ->update($insert);
+    }
+
+    public function edit($data)
+    {
+        // dd($data);
+        $update = [];
+        $update['blog_tags']          = null == $data['tag'] ? '' : $data['tag'];
+        $update['blog_title']         = null == $data['title'] ? '' : $data['title'];
+        $update['blog_content']       = null == $data['content'] ? '' : $data['content'];
+        $update['blog_summary']       = null == $data['summary'] ? substr_utf8(preg_replace('/(<.+?>)|(&.+?;)/', '', $data['content']), 0, 200) : $data['summary'];
+        $update['blog_is_public']     = isset($data['is_public']);
+        $update['blog_index_top']     = isset($data['index_top']);
+        $update['blog_category_id']   = isset($data['category']) ? $data['category'] : 0;
+        $update['blog_category_top']  = isset($data['category_top']);
+        $update['blog_allow_comment'] = isset($data['allow_comment']);
+        $update['blog_view_password'] = $data['password'];
+        $update['blog_create_time']   = date('Y-m-d H:i:s');
+        $update['blog_view_count']    = 0;
+
+        return DB::table('blog')
+                ->where('id', $data['id'])
+                ->update($update);
     }
 
     public function get_draft_blog($user_id, $data)
@@ -238,8 +274,31 @@ class BlogModel extends Model
                 ->first();
 
         $blog->blog_tags = $blog->blog_tags == "" ? [] : explode(',', $blog->blog_tags);
+        // dd($blog);
 
         return $blog;
+    }
+
+    public function get_static_page($id)
+    {
+        $blog = DB::table('blog')
+                ->where('blog.id', $id)
+                ->select('blog_static_page')
+                ->first();
+        if(!$blog) return '';
+        DB::table('blog')
+                ->where('blog.id', $id)
+                ->increment('blog_open_count');
+        $count = DB::table('blog')
+                ->where('blog.id', $id)
+                ->select('blog_open_count', 'blog_view_password')
+                ->first();
+
+        if($count->blog_open_count > 10)
+            $this->create_page($id, $count->blog_view_password);
+
+        return $blog->blog_static_page == null ? "" : $blog->blog_static_page;
+
     }
 
     public function blog_view_increment($id, $user_id)
@@ -299,5 +358,18 @@ class BlogModel extends Model
         return DB::table('blog')
                 ->where('id', $id)
                 ->increment('blog_thumbs_up_count');
+    }
+
+    public function create_page($id, $pwd = null)
+    {
+        $filename = 'page/'.md5(time().url('blog')."?id=".$id).'.html';
+        // dd(url('blog')."?id=".$id);
+        Storage::disk('upload')->put($filename, file_get_contents(url('blog')."?id=".$id.'&exc=1&pwd='.$pwd));
+
+        // dd(1);
+        DB::table('blog')
+            ->where('id', $id)
+            ->update(['blog_static_page' => $filename]);
+        return;
     }
 }

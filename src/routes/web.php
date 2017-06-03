@@ -26,6 +26,8 @@ Route::get('/admin', function() {
         return redirect('/');
 });
 
+
+
 Route::group(['middleware' => 'IsNotLogin'], function() {
 
     Route::get('/login', 'LoginController@login');
@@ -35,6 +37,9 @@ Route::group(['middleware' => 'IsNotLogin'], function() {
     Route::post('/register', 'LoginController@register2');
 
 });
+
+        
+Route::get('/blog', 'BlogController@blog');
 
 Route::group(['middleware' => 'IsLogin'], function() {
 
@@ -97,8 +102,8 @@ Route::group(['middleware' => 'IsLogin'], function() {
         });
 
         Route::get('/edit', 'BlogManageController@edit');
-        
-        Route::get('/', 'BlogController@blog');
+        Route::post('/edit', 'BlogManageController@edit2');
+
 
         Route::get('/publish', 'BlogController@publish');
 
@@ -119,6 +124,23 @@ Route::group(['middleware' => 'IsLogin'], function() {
         Route::get('/unlike', 'BlogController@unlike');
 
         Route::get('/password', 'BlogController@password');
+    });
+
+    Route::group(['prefix' => 'file'], function() {
+        
+        Route::get('/', 'FileController@file');
+        Route::get('/file', 'FileController@file');
+
+        Route::get('/delete', 'FileController@delete_file');
+        Route::get('/recovery', 'FileController@recovery_file');
+
+    });
+
+    Route::group(['prefix' => 'sql'], function() {
+        
+        Route::get('/', 'SqlController@sql');
+        Route::any('/sql2', 'SqlController@run');
+
     });
 
 });

@@ -152,7 +152,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>lichaoxi2</td>
+                                            <td>wangjun</td>
                                             <td>2016-12-30 16:35:12</td>
                                             <td>
                                                 <label class="label label-warning">未激活</label>
@@ -162,7 +162,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>lichaoxi3</td>
+                                            <td>xiaomu</td>
                                             <td>2016-12-30 16:35:12</td>
                                             <td>
                                                 <label class="label label-danger">已封禁</label>

@@ -8,6 +8,13 @@ use Storage;
 
 class FileController extends Controller
 {
+    protected $fiel_model;
+
+    public function __construct()
+    {
+        $this->file_model = new \App\FileModel();
+    }
+
     public function upload_image(Request $request)
     {
         // dd($request->all());
@@ -33,6 +40,7 @@ class FileController extends Controller
                     // Storage::move($realPath, $filename);
                     $bool = Storage::disk('upload')->put($filename, file_get_contents($realPath));
                     // dd($bool);
+                    $this->file_model->insert($file->getClientOriginalName(), $filename, $request->get('id'));
                     return asset('').$filename;
                 }
                 return "error|文件格式错误，必须为图片";
@@ -40,6 +48,44 @@ class FileController extends Controller
             return "error|文件上传失败";
         }
         return "error|文件不存在";
+    }
+
+    public function file(Request $request)
+    {
+
+        // return view('file.file');
+        if($request->has('id'))
+        {
+            $files = $this->file_model->get_file($request->get('id'));
+            
+            if($files)
+            {
+                $data = [
+                    'files' => $files
+                ];
+                // dd($files);
+                return view('file.file', $data);
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function delete_file(Request $request)
+    {
+        if($request->has('id'))
+        {
+            $files = $this->file_model->delete_file($request->get('id'));
+        }
+        return redirect()->back();
+    }
+
+    public function recovery_file(Request $request)
+    {
+        if($request->has('id'))
+        {
+            $files = $this->file_model->recovery_file($request->get('id'));
+        }
+        return redirect()->back();
     }
 
     private function is_image($mineType)

@@ -11,7 +11,7 @@
         <div class="col-md-9 col-sm-7 col-xs-12">
             <div class="mb-block write">
                 <div class="mb-block-content">
-                        <form action="{{url('blog/manage/edit')}}" method="post">
+                        <form action="{{url('blog/edit')}}" method="post">
                             <div class="form-group">
                                 <label class="control-label">标题</label>
                                 <input type="text" name="title" placeholder="请输入标题..." class="form-control" autocomplete="off" required="" value="{{$blog->blog_title}}">
@@ -62,9 +62,9 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="hidden" name="type" id="type" value="">
+                                <input type="hidden" name="id" value="{{ $blog->id }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button class="btn-submit pull-left">保存</button>
+                                <button type="submit" class="btn-submit pull-left">保存</button>
                             </div>
                             <br>
                         </form>                    

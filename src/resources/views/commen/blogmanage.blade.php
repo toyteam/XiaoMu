@@ -70,12 +70,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><span><img height="100%" src="{{asset('image')}}/m.jpg"></span> 晓木Blog</a>
+                <a class="navbar-brand" href="{{url('/')}}"><span><img height="100%" src="{{asset('image')}}/m.jpg"></span> 晓木Blog</a>
             </div>
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <?php if(session()->get('user_name', null) == null): ?>
-                    <li><a href="{{url('login')}}">登陆</a></li>
+                    <li><a href="{{url('login')}}">登录</a></li>
                     <li><a href="{{url('register')}}">注册</a></li>
                     <?php else: ?>
                     <li class="dropdown">

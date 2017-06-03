@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Storage;
 
 class BlogController extends Controller
 {   
@@ -58,6 +59,19 @@ class BlogController extends Controller
     {
         if($request->has('id'))
         {
+            // var_dump($request->all());
+            if(!$request->has('exc'))
+            {            
+                $static_page = $this->blog_model->get_static_page($request->get('id'));
+                if($static_page != '')
+                {
+                    // echo $static_page;
+                    // echo Storage::disk('upload')->get($static_page);
+                    return redirect(asset('/').$static_page);
+                }          
+            }
+// dd($request->all());
+
             $password = $request->has('pwd') ? $request->get('pwd') : null;
             $bool = $this->text_blog_password($request->get('id'), $password);
             if(!$bool)

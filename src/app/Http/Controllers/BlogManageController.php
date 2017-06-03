@@ -22,10 +22,12 @@ class BlogManageController extends Controller
     public function write()
     {
         $categorys = $this->category_model->get_categorys_by_user_id(session()->get('user_id'));
+        $blog_id = $this->blog_model->create_blog();
 
         $data = [
             'url' => 'url_write',
-            'categorys' => $categorys
+            'categorys' => $categorys,
+            'id' => $blog_id
         ];
 
         return view('blog.manage.write', $data);
@@ -51,6 +53,12 @@ class BlogManageController extends Controller
 
             return view('blog.manage.edit', $data);
         }
+        return redirect()->back();
+    }
+
+    public function edit2(Request $request)
+    {
+        $write = $this->blog_model->edit($request->all());
         return redirect()->back();
     }
 

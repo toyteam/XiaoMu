@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>MyBlog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -77,7 +78,7 @@
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <?php if(session()->get('user_name', null) == null): ?>
-                    <li><a href="{{url('login')}}">登陆</a></li>
+                    <li><a href="{{url('login')}}">登录</a></li>
                     <li><a href="{{url('register')}}">注册</a></li>
                     <?php else: ?>
                     <li class="dropdown">

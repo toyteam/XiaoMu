@@ -19,6 +19,9 @@ class LoginController extends Controller
 
   public function login()
   {
+    session()->put('user_is_login', false);
+    session()->put('user_name', null);
+    // dd(session()->all());
     return view('login.login');
   }
 
@@ -62,6 +65,8 @@ class LoginController extends Controller
   public function logout()
   {
     session()->put('user_is_login', false);
+    session()->put('user_name', null);
+    
     return redirect('login');
   }
 

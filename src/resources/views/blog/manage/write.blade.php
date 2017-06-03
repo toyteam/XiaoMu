@@ -47,7 +47,11 @@
                             <div class="form-group">
                                 <label class="control-label">文章摘要</label>
                                 <textarea name="summary" rows="7" class="form-control" placeholder="如果此项为空，则默认截取文章前200个字作为摘要"></textarea>
-                            </div>
+                            </div><!-- 
+                            <div class="form-group">
+                                <label class="control-label">上传附件</label>
+                                <input type="file" multiple="" name="file[]" class="form-control">
+                            </div> -->
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label class="control-label"><input type="checkbox" name="index_top"> 首页置顶 </label>
@@ -59,6 +63,7 @@
 
                             <div class="form-group">
                                 <input type="hidden" name="type" id="type" value="">
+                                <input type="hidden" name="id" id="id" value="{{$id}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <button value="1" class="btn-submit pull-left">发布博客</button>
                                 <button value="2" class="btn-submit pull-left">保存草稿</button>
@@ -115,7 +120,8 @@
         ];
         editor.config.uploadImgUrl = '{{url('upload_image')}}';
         editor.config.uploadParams = {
-            '_token':"{{ csrf_token() }}"
+            '_token':"{{ csrf_token() }}",
+            'id': {{$id}}
         };
         editor.config.uploadImgFileName = 'file';
         editor.config.uploadHeaders = {

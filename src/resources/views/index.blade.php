@@ -29,7 +29,7 @@
         }
         .user-desc{
             text-align: center;
-            color: white;
+            color: black;
         }
         .block .user-name a{
             color: yellow;
@@ -58,10 +58,10 @@
         }
 
         #hot .user-name a{
-            color: white;
+            color: black;
         }
         .article-title a{
-            color: white;
+            color: black;
         }
 
     </style>
@@ -103,7 +103,7 @@
     <div class="container">
         <div class="row" style="margin-top: 30px;">
             <div class="col-md-9 col-sm-9 col-xs-12">
-                <div class="block tabcordion">
+                <div class="mb-block tabcordion">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-target="#hot" href="#">热门文章</a></li>
                         <li><a data-target="#newest" href="#">最新文章</a></li>
@@ -386,7 +386,7 @@
                 </div>                
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12">
-                <div class="block">
+                <div class="mb-block">
                     <div class="block-head">
                         <span>热门作者</span>
                     </div>
@@ -405,7 +405,7 @@
                     </div>                        
 
                 </div>
-                <div class="block">
+                <div class="mb-block">
                     <div class="block-head">
                         <span>敬请期待</span>
                     </div>

@@ -86,10 +86,10 @@
                 </div>
                 <div class="form-group">
                     <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-                    <button type="submit" class="btn btn-black btn-block">登陆</button>
+                    <button type="submit" class="btn btn-black btn-block">登录</button>
                 </div>
                 <div class="form-group">
-                    <span class="pull-left"><a href="https://github.com/toyteam/XiaoMu/tree/damuking-patch-1">站店说明</a></span>
+                    <span class="pull-left"><a href="https://github.com/toyteam/XiaoMu/tree/damuking-patch-1">站点说明</a></span>
                     <span class="pull-right"><a href="{{url('register')}}">注册账号</a></span>
                 </div>
                 <br>
